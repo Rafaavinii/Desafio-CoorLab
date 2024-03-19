@@ -1,4 +1,5 @@
 <script setup>
+import Modal from '@/components/Modal.vue';
 import { ref, reactive } from 'vue';
 
 const travel = reactive({
@@ -8,10 +9,20 @@ const travel = reactive({
 
 const formSubmitted = ref(false)
 
-function search() {
-  console.log(travel.destination, travel.date)
-  formSubmitted.value = true
+const isModalOpen = ref(false);
+
+const search = () => {
+  if (travel.destination === '' || travel.date === ''){
+    isModalOpen.value = true
+  } else {
+    console.log(travel.destination, travel.date)
+    formSubmitted.value = true
+  }
 }
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
 
 </script>
 
@@ -19,21 +30,24 @@ function search() {
 <template>
   <div class="main-content">
       <div class="card">
-          <div class="card-header">Calculadora de Viagem</div>
+          <div class="card-header"><img src="../components/icons/caminhao.png" width="20px" class="icon-caminhao">Calculadora de Viagem</div>
           <div class="card-body">
               <div class="form-section">
                   <h2 class="title">Calcule o Valor da Viagem</h2>
                   <form @submit.prevent="search">
                       <div class="form-group">
                           <label for="destino">Destino:</label>
-                          <input type="text" id="destino" v-model="travel.destination" required>
+                          <input type="text" id="destino" v-model="travel.destination">
                       </div>
                       <div class="form-group">
                           <label for="data">Data:</label>
-                          <input type="date" id="data" v-model="travel.date" required>
+                          <input type="date" id="data" v-model="travel.date">
                       </div>
                       <button type="submit">Buscar</button>
                   </form>
+              </div>
+              <div class="info-section" v-if="formSubmitted === false" >
+                  Nenhum dado selecionado
               </div>
               <div class="info-section" v-if="formSubmitted">
                   
@@ -41,6 +55,8 @@ function search() {
           </div>
       </div>
   </div>
+
+  <Modal :isOpen="isModalOpen" @click="closeModal" />
 </template>
 
 
@@ -118,4 +134,10 @@ form {
   padding-top: 15px;
 }
 
+
+.icon-caminhao{
+  margin-right: 5px;
+  margin-top: 5px;
+  width: 22px;
+}
 </style>

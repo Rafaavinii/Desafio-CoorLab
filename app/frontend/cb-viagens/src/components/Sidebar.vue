@@ -1,14 +1,14 @@
 <template>
     <div class="sidebar">
         <img src="../assets/logo.png" class="logo">
-        <router-link to="/"><img src="../assets/calculator.png" class="icon">Calculadora de Viagem</router-link>
+        <router-link to="/"><img src="./icons/calculator.png" class="icon">Calculadora de Viagem</router-link>
     </div>
 
 </template>
 
 <style scoped>
     .sidebar {
-        width: 250px;
+        width: 35%;
         background-color: #171f35;
         padding-top: 20px;
         height: 100vh;
