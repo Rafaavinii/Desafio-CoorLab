@@ -11,7 +11,7 @@ import MainContentView from './views/MainContentView.vue';
       <MainContentView />
     </div>
   </div>
-  <RouterView />
+  <!-- <RouterView /> -->
 </template>
 
 <style scoped>

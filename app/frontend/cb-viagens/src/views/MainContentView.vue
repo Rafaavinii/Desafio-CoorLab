@@ -46,11 +46,50 @@ const closeModal = () => {
                       <button type="submit">Buscar</button>
                   </form>
               </div>
-              <div class="info-section" v-if="formSubmitted === false" >
-                  Nenhum dado selecionado
-              </div>
-              <div class="info-section" v-if="formSubmitted">
-                  
+              <div class="info-section">
+                <div class="response" v-if="formSubmitted === false">
+                  <p>Nenhum dado selecionado</p>
+                </div>
+                <div class="response" v-if="formSubmitted">
+                    <div class="container">
+                      
+                      <div class="card-info">
+                        <div class="details">
+                          <div class="icon-card">
+                              <img src="../components/icons/coin.png" width="30px" height="30px">
+                          </div>
+                          <div class="info">
+                              <!-- Informações da viagem -->
+                              <h2>Transportadora</h2>
+                              <p>Poltrona: 3 (completo)</p>
+                              <p>Tempo estimado: 6h</p>
+                          </div>
+                        </div>
+                        <div class="price">
+                            <h2>Preço:</h2>
+                            <p>R$ 1000</p>
+                        </div>
+                      </div>
+                      <div class="card-info">
+                        <div class="details">
+                          <div class="icon-card">
+                              <img src="../components/icons/time.png" width="30px" height="30px">
+                          </div>
+                          <div class="info">
+                              <!-- Informações da viagem -->
+                              <h2>Transportadora</h2>
+                              <p>Poltrona: 3 (completo)</p>
+                              <p>Tempo estimado: 6h</p>
+                          </div>
+                        </div>
+                        <div class="price">
+                            <h2>Preço:</h2>
+                            <p>R$ 1000</p>
+                        </div>
+                      </div>
+                      
+                  </div>
+                </div>
               </div>
           </div>
       </div>
@@ -67,12 +106,13 @@ flex: 1;
 display: flex;
 justify-content: center;
 align-items: center;
+background-color: #eff4ff80;
 }
 .card {
 background-color: #ffffff;
 box-shadow: 0 4px 8px rgba(46, 46, 46, 0.356);
 border-radius: 8px;
-width: 80%; /* Ajuste conforme necessário */
+width: 80%;
 }
 .card-header {
 background-color: #171f35;
@@ -85,6 +125,7 @@ color: white;
 .card-body {
 padding: 20px;
 display: flex;
+align-items: center;
 }
 .form-section, .info-section {
 width: 50%;
@@ -98,6 +139,7 @@ padding: 20px;
 .form-section {
   background-color: rgba(206, 206, 206, 0.418);
   border-radius: 8px;
+  width: 40%;
 }
 
 .form-group {
@@ -140,4 +182,63 @@ form {
   margin-top: 5px;
   width: 22px;
 }
+
+.info-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.response {
+  width: 100%;
+  height: 100%;
+  margin-left: 20px;
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-info{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  margin: 5px;
+  width: 100%;
+}
+
+.details{
+  display: flex;
+  background-color: #b9c0d481;
+  border-radius: 8px;
+  width: 90%;
+}
+
+.info{
+  padding: 10px;
+  width: 70%;
+  margin-left: 10px;
+}
+
+.price {
+  background-color: #b9c0d481;
+  border-radius: 8px;
+  margin-left: 10px;
+  width: 30%;
+  padding: 10px;
+}
+
+.icon-card{
+  background-color: #56caf8;
+  padding: 20px;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>
