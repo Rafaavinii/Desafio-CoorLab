@@ -28,3 +28,23 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+
+*.pyc
+bac/__pycache__/
+
+# Ignorar arquivos de banco de dados SQLite
+backend/cbviagens/db.sqlite3
+
+# Ignorar arquivos de log
+backend/*.log
+
+# Ignorar arquivos específicos do ambiente
+backend/*.env
+
+# Ignorar arquivos de configuração de IDEs
+.vscode/
+.idea/
+
+# Dependências do pip
+backend/.venv/

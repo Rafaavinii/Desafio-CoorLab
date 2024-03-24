@@ -1,12 +1,14 @@
 <script setup>
-import { ref } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   isOpen: Boolean
 });
 
+const { emit } = defineEmits();
+
 const closeModal = () => {
-  props.isOpen = false;
+  emit('close');
 };
 </script>
 

@@ -24,6 +24,7 @@ import MainContentView from './views/MainContentView.vue';
 
 .container {
   display: flex;
-  flex: 1;
+  flex-direction: row;
+  width: 100%;
 }
 </style>

@@ -1,24 +1,23 @@
 <script setup>
+import Info from '@/components/Info.vue';
 import Modal from '@/components/Modal.vue';
-import { ref, reactive } from 'vue';
+import { ref, reactive, watchEffect } from 'vue';
 
 const travel = reactive({
   destination: '',
   date: ''
-})
+});
 
-const formSubmitted = ref(false)
-
+const formSubmitted = ref(false);
 const isModalOpen = ref(false);
 
 const search = () => {
   if (travel.destination === '' || travel.date === ''){
-    isModalOpen.value = true
+    isModalOpen.value = true;
   } else {
-    console.log(travel.destination, travel.date)
-    formSubmitted.value = true
+    formSubmitted.value = true;
   }
-}
+};
 
 const closeModal = () => {
   isModalOpen.value = false;
@@ -26,73 +25,43 @@ const closeModal = () => {
 
 </script>
 
-
 <template>
   <div class="main-content">
-      <div class="card">
-          <div class="card-header"><img src="../components/icons/caminhao.png" width="20px" class="icon-caminhao">Calculadora de Viagem</div>
-          <div class="card-body">
-              <div class="form-section">
-                  <h2 class="title">Calcule o Valor da Viagem</h2>
-                  <form @submit.prevent="search">
-                      <div class="form-group">
-                          <label for="destino">Destino:</label>
-                          <input type="text" id="destino" v-model="travel.destination">
-                      </div>
-                      <div class="form-group">
-                          <label for="data">Data:</label>
-                          <input type="date" id="data" v-model="travel.date">
-                      </div>
-                      <button type="submit">Buscar</button>
-                  </form>
-              </div>
-              <div class="info-section">
-                <div class="response" v-if="formSubmitted === false">
-                  <p>Nenhum dado selecionado</p>
-                </div>
-                <div class="response" v-if="formSubmitted">
-                    <div class="container">
-                      
-                      <div class="card-info">
-                        <div class="details">
-                          <div class="icon-card">
-                              <img src="../components/icons/coin.png" width="30px" height="30px">
-                          </div>
-                          <div class="info">
-                              <!-- Informações da viagem -->
-                              <h2>Transportadora</h2>
-                              <p>Poltrona: 3 (completo)</p>
-                              <p>Tempo estimado: 6h</p>
-                          </div>
-                        </div>
-                        <div class="price">
-                            <h2>Preço:</h2>
-                            <p>R$ 1000</p>
-                        </div>
-                      </div>
-                      <div class="card-info">
-                        <div class="details">
-                          <div class="icon-card">
-                              <img src="../components/icons/time.png" width="30px" height="30px">
-                          </div>
-                          <div class="info">
-                              <!-- Informações da viagem -->
-                              <h2>Transportadora</h2>
-                              <p>Poltrona: 3 (completo)</p>
-                              <p>Tempo estimado: 6h</p>
-                          </div>
-                        </div>
-                        <div class="price">
-                            <h2>Preço:</h2>
-                            <p>R$ 1000</p>
-                        </div>
-                      </div>
-                      
-                  </div>
-                </div>
-              </div>
-          </div>
+    <div class="card">
+      <div class="card-header">
+        <img src="../components/icons/caminhao.png" width="20px" class="icon-caminhao">Calculadora de Viagem
       </div>
+      <div class="card-body">
+        <div class="form-section">
+          <h2 class="title"><img src="../components/icons/coin.png" width="20px" color="black">Calcule o Valor da Viagem</h2>
+          <form @submit.prevent="search">
+            <div class="form-group">
+              <label for="destination_city">Destino:</label>
+              <select v-model="travel.destination">
+                <option value="Belo Horizonte">Belo Horizonte</option>
+                <option value="Campinas">Campinas</option>
+                <option value="Salvador">Salvador</option>
+                <option value="Curitiba">Curitiba</option>
+                <option value="Fortaleza">Fortaleza</option>
+                <option value="Natal">Natal</option>
+                <option value="Recife">Recife</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+                <option value="Manaus">Manaus</option>
+                <option value="São Paulo">São Paulo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="data">Data:</label>
+              <input type="date" id="data" v-model="travel.date">
+            </div>
+            <button type="submit" @click="fetchDataFromAPI">Buscar</button>
+          </form>
+        </div>
+        <div class="info-section">
+          <Info :isformSubmitted="formSubmitted" :selectedCity="travel.destination" />
+        </div>
+      </div>
+    </div>
   </div>
 
   <Modal :isOpen="isModalOpen" @click="closeModal" />
@@ -127,9 +96,19 @@ padding: 20px;
 display: flex;
 align-items: center;
 }
-.form-section, .info-section {
+.form-section {
 width: 50%;
 padding: 20px;
+}
+
+.info-section {
+display: flex;
+flex-wrap: wrap;
+}
+.first-item {
+  width: 100%;
+  padding-left: 15px;
+  font-size: large;
 }
 
 .title {
@@ -172,10 +151,15 @@ input{
   border-radius: 4px;
 }
 
+select{
+  height: 35px;
+  border-color: rgba(128, 128, 128, 0.13);
+  border-radius: 4px;
+}
+
 form {
   padding-top: 15px;
 }
-
 
 .icon-caminhao{
   margin-right: 5px;
@@ -183,62 +167,5 @@ form {
   width: 22px;
 }
 
-.info-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.response {
-  width: 100%;
-  height: 100%;
-  margin-left: 20px;
-}
-
-.container {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.card-info{
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  margin: 5px;
-  width: 100%;
-}
-
-.details{
-  display: flex;
-  background-color: #b9c0d481;
-  border-radius: 8px;
-  width: 90%;
-}
-
-.info{
-  padding: 10px;
-  width: 70%;
-  margin-left: 10px;
-}
-
-.price {
-  background-color: #b9c0d481;
-  border-radius: 8px;
-  margin-left: 10px;
-  width: 30%;
-  padding: 10px;
-}
-
-.icon-card{
-  background-color: #56caf8;
-  padding: 20px;
-  border-radius: 8px 0 0 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 </style>
