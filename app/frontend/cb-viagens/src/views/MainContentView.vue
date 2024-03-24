@@ -33,7 +33,7 @@ const closeModal = () => {
       </div>
       <div class="card-body">
         <div class="form-section">
-          <h2 class="title"><img src="../components/icons/coin.png" width="20px" color="black">Calcule o Valor da Viagem</h2>
+          <h2 class="title"><img src="../components/icons/coin_black.png" width="20px" class="icon-coin">Calcule o Valor da Viagem</h2>
           <form @submit.prevent="search">
             <div class="form-group">
               <label for="destination_city">Destino:</label>
