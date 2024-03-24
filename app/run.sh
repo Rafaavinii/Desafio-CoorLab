@@ -12,6 +12,8 @@ echo "Frontend Vue.js iniciado."
 echo "Iniciando o backend Django..."
 cd ../../backend
 
+sudo apt install python3-venv
+
 python3 -m venv venv
 
 source venv/bin/activate
